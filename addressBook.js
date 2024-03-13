@@ -83,8 +83,51 @@ function displayAddress(entry, asyncRequest){
     if (asyncRequest.readyState == 4 && asyncRequest.status == 200){
         var data = JSON.parse(asyncRequest.responseText);
         var name = entry.innerHTML;
-        entry.innerHTML = name + "<br>" + data.Street + ", " + data.City + ", " + data.State + ", " + data.Zip + "<br>" + data.Telephone;;
+        entry.innerHTML = name + "<br>" + data.Street + ", " + data.City + ", " + data.State + ", " + data.Zip + "<br>" + data.Telephone;
+        //change event listener
+        entry.onclick = function() {
+        clearField(entry, name)
+        }
     }
+}
 
-    //change event listener
+function clearField(entry, name) {
+    entry.innerHTML = name; // set the entry to display only the name
+    entry.onclick = function() { getAddress(entry, name); };
+}
+
+// display the form that allows the user to enter more data
+function addEntry() {
+    document.getElementById("addressBook").style.display = "none";
+    document.getElementById("addEntry").style.display = "block";
+}
+
+// send the ZIP code to be validated and to generate city and state
+function validateZip(zip) {
+    callWebService("/validateZip/" + zip, showCityState);
+}
+
+// get city and state that were generated using the zip code
+// and display them on the page
+function showCityState(asyncRequest) {
+    // display message while request is being processed
+    document.getElementById("validateZip").innerHTML = "Checking zip...";
+
+    // if request has completed successfully, process the response
+    if (asyncRequest.readyState == 4) {
+        if (asyncRequest.status == 200) {
+            // convert the JSON string to an object
+            var data = JSON.parse(asyncRequest.responseText);
+
+            // update ZIP-code validity tracker and show city and state
+            if (data.Validity == "Valid") {
+                zipValid = true; // update validity tracker
+
+                // display city and state
+                document.getElementById("validateZip").innerHTML = "";
+                document.getElementById("city").innerHTML = data.City;
+                document.getElementById("state").
+            }
+        }
+    }
 }

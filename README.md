@@ -1,2 +1,2 @@
 # HTML-CSS-Javascript
-Labs and Assignments
+Learning Web programming

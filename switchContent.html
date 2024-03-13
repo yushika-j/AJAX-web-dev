@@ -1,0 +1,87 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+    </style>
+        
+    <title>Switch content asynchronously </title>
+
+    <script>
+        var asyncRequest; //variable to hold xml requests
+
+        //set up event handlers'
+        function registerListeners(){
+            var img;
+            img = document.getElementById("cpphtp");
+            img.addEventListener("mouseover", function(){
+                getContent("cpphtp8.html");
+            }, false);
+            img.addEventListener("mouseout", clearContent, false);
+            
+            img = document.getElementById("iw3htp");
+            img.addEventListener("mouseover", function() {
+                getContent("iw3htp.html");
+            }, false);
+            img.addEventListener("mouseout", clearContent, false);
+            
+            img = document.getElementById("jhtp");
+            img.addEventListener("mouseover", function() {
+                getContent("jhtp.html");
+            }, false);
+            img.addEventListener("mouseout", clearContent, false);
+            
+            img = document.getElementById("vbhtp");
+            img.addEventListener("mouseover", function() {
+                getContent("vbhtp.html");
+            }, false);
+            img.addEventListener("mouseout", clearContent, false);
+            
+            img = document.getElementById("vcshtp");
+            img.addEventListener("mouseover", function() {
+                getContent("vcshtp.html");
+            }, false);
+            img.addEventListener("mouseout", clearContent, false);
+            
+            img = document.getElementById("javafp");
+            img.addEventListener("mouseover", function() {
+                getContent("javafp.html");
+            }, false);
+            img.addEventListener("mouseout", clearContent, false);
+        } // end function registerListeners
+
+        function getContent(url){
+            try{
+                asyncRequest = new XMLHttpRequest();
+                
+                asyncRequest.addEventListener("readystatechange", stateChange, false);
+                asyncRequest.open("GET", url, true);
+                asyncRequest.send(null);
+            } catch (exception){
+                alert("Request failed");
+            }
+        }
+
+        function stateChange(){
+            if(asyncRequest.readyState == 4 && asyncRequest.status == 200){
+                document.getElementById("contentArea").innerHTML = asyncRequest.responseText;
+            }
+        }
+
+        function clearContent(){
+            document.getElementById("contentArea").innerHTML = "";
+        }
+
+        window.addEventListener("load", registerListeners, false);
+    </script>
+</head>
+<body>
+    <h1>Mouse over a book for more information.</h1>
+        <img id="cpphtp" alt="C++ How to Program book cover" src="http://test.deitel.com/images/thumbs/cpphtp8.jpg">
+        <img id="iw3htp" alt="Internet & WWW How to Program book cover" src="http://test.deitel.com/images/thumbs/iw3htp5.jpg">
+        <img id="jhtp" alt="Java How to Program book cover" src="http://test.deitel.com/images/thumbs/jhtp9.jpg">
+        <img id="vbhtp" alt="Visual Basic 2010 How to Program book cover" src="http://test.deitel.com/images/thumbs/vb2010htp.jpg">
+        <img id="vcshtp" alt="Visual C# 2010 How to Program book cover" src="http://test.deitel.com/images/thumbs/vcsharp2010htp.jpg">
+        <img id="javafp" alt="Java for Programmers book cover" src="http://test.deitel.com/images/thumbs/javafp.jpg">
+    <div class="box" id="contentArea"></div>
+    </body>
+</html>

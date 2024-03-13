@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Address Book</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="AddressBook.js"></script>
+</head>
+<body>
+    <div>
+        <input id="addressBookButton" type="button" value="Address Book">
+        <input id="addEntryButton" type="button" value="Add an Entry">
+    </div>
+    <div id="addressBook">
+        <p>Search By Last Name: <input id="searchInput"></p>
+        <div id="Names"></div>
+    </div>
+    <div id="addEntry" style="display: none">
+        <p><label>First Name:</label> <input id="first"></p>
+        <p><label>Last Name:</label> <input id="last"></p>
+        <p class="head">Address:</p>
+        <p><label>Street:</label> <input id="street"></p>
+        <p><label>City:</label> <span id="city" class="validator"></span></p>
+        <p><label>State:</label> <span id="state" class="validator"></span></p>
+        <p><label>Zip:</label> <input id="zip"><span id="validateZip" class="validator"></span></p>
+        <p><label>Telephone:</label> <input id="phone"><span id="validatePhone" class="validator"></span></p>
+        <p><input id="submitButton" type="button" value="Submit"></p>
+        <div id="success" class="validator"></div>
+    </div>
+</body>
+</html>

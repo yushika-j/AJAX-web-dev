@@ -1,11 +1,11 @@
 var webServiceUrl = "http://localhost:8080/AddressBookWebService/Service.svc";
 var phoneValid = false; //indicates if the phone number is valid
-var zipValip = false; //indicates if the zip code is valid
+var zipValid = false; //indicates if the zip code is valid
 
 function showAddressBook(){
     document.getElementById("addEntry").style.display = "none";
     document.getElementById("addressBook").style.display = "block";
-    callWebservice("getAllNames", parseData);
+    callWebService("getAllNames", parseData);
 }   
 
 function callWebService(methodAndArguments, callback){
@@ -126,8 +126,46 @@ function showCityState(asyncRequest) {
                 // display city and state
                 document.getElementById("validateZip").innerHTML = "";
                 document.getElementById("city").innerHTML = data.City;
-                document.getElementById("state").
-            }
-        }
-    }
+                document.getElementById("state").innerHTML = data.State; 
+            } // end if
+            else {
+                zipValid = false; // update validity tracker
+                document.getElementById("validateZip").innerHTML = data.ErrorText; // display the error
+
+                // clear city and state values if they exist
+                document.getElementById("city").innerHTML = "";
+                document.getElementById("state").innerHTML = "";
+            } // end else
+        } // end if
+        else if (asyncRequest.status == 500) {
+            document.getElementById("validateZip").innerHTML = "Zip validation service not available";
+        } // end else if
+    } // end if
+} // end function showCityState
+
+// send the telephone number to the server to validate format
+function validatePhone(phone) {
+    callWebService("/validateTel/" + phone, showPhoneError);
+}
+
+// show whether the telephone number has correct format
+function showPhoneError(asyncRequest) {
+    // if request has completed successfully, process the response
+    if (asyncRequest.readyState == 4 && asyncRequest.status == 200) {
+        // convert the JSON string to an object
+        var data = JSON.parse(asyncRequest.responseText);
+
+        if (data.ErrorText != "Valid Telephone Format") {
+            phoneValid = false; // update validity tracker
+            document.getElementById("validatePhone").innerHTML = data.ErrorText; // display the error
+        } // end if
+        else {
+            phoneValid = true; // update validity tracker
+        } // end else
+    } // end if
+} // end function showPhoneError
+
+// enter the user's data into the database
+function saveForm() {
+    // retrieve the data from the form
 }

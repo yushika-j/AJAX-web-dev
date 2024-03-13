@@ -1,0 +1,19 @@
+<!ELEMENT letter (contact+, salutation, paragraph+, closing, signature)>
+
+<!ELEMENT contact (name, address1, address2?, city, state, zip, phone, flag)>
+<!ATTLIST contact type (sender | receiver) #REQUIRED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT address1 (#PCDATA)>
+<!ELEMENT address2 (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT state (#PCDATA)>
+<!ELEMENT zip (#PCDATA)>
+<!ELEMENT phone (#PCDATA)>
+<!ELEMENT flag EMPTY>
+<!ATTLIST flag gender (M | F) #REQUIRED>
+
+<!ELEMENT salutation (#PCDATA)>
+<!ELEMENT paragraph (#PCDATA)>
+<!ELEMENT closing (#PCDATA)>
+<!ELEMENT signature (#PCDATA)>

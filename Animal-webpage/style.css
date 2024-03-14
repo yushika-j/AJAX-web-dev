@@ -22,8 +22,14 @@ button{
     text-align: center;
 }
 
+.hide-me{
+    display: none;
+    transition-duration: 0.5s;
+}
+
 #btn:hover {
     opacity: 1;
+    transition-duration: 0.5s;
 }
 
 #btn:active {
